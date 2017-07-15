@@ -18,11 +18,15 @@ Route::get('/', function () {
 });
 
 // Display all SQL executed in Eloquent
-Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
+/*Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
     var_dump($query->sql);
     var_dump($query->bindings);
     var_dump($query->time);
-});
+});*/
 
 Route::get('menu/{id?}', 'MenuController@menu');
+
+Route::get('/user', 'UserController@index');
+
+Route::get('/user/show/{id?}','UserController@show');
 

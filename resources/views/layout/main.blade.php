@@ -16,12 +16,14 @@
 
 </head>
 <body>
-<div>	<h1>Hola Mundo</h1></div>
+
+<div class="container">	<h1>Hola Mundo</h1>
 	
-	<div class="col-md-12">
 		
 	@yield('contenido')
-	</div>
+	
+</div>
+	
 
 </body>
 </html>

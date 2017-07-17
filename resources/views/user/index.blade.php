@@ -1,18 +1,27 @@
 @extends('layout.main')
 
 @section('contenido')
+
 <div class="col-md-6">
-<table class="table table-hover">
+<table class="table table-hover table-striped">
   <tr>
-	  <td>Nombre</td>
-	  <td>Cedula</td>
-	  <td>Correo</td>
+	  <th>Nombre</th>
+	  <th>Cedula</th>
+	  <th>Restricción</th>
+	  <th>Acciones</th>
   </tr>
   @foreach($users as $user)
   <tr>
 	  <td>{{$user->nombre}}</td>
 	  <td>{{$user->codigo}}</td>
-	  <td>{{$user->}}</td>
+	  <td>{{$user->restriccion}}</td>
+	  <td>
+	  	<div class="btn-group-md" role="group" aria-label="...">
+		  <a href={{route('user.show',$user->id)}} class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a>
+		  <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></button>
+		  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle"></span></button>		 
+		</div>
+	  </td>
   </tr>
   @endforeach
 

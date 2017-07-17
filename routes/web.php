@@ -14,9 +14,12 @@
 use App\Http\Controllers\Controller;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
+Route::get('login', function () {
+    return view('login');
+});
 // Display all SQL executed in Eloquent
 /*Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
     var_dump($query->sql);p

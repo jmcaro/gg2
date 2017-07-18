@@ -10,7 +10,7 @@ class User extends Model
 
     public function language()
     {
-    	return $this->belongTo(Language::class);
+    	return $this->belongsTo(Language::class,'idioma_id');
     }
 
     public function menus()

@@ -1,19 +1,25 @@
-@extends('layout.main')
+@extends('home')
+@section('content')
+<a href="{{route('user.index')}}" class="btn btn-primary">Volver</a>
 
-@section('contenido')
-<div class="container">
-<div class="jumbotron">
-  <h1>{{$user->nombre}}</h1>
-  <p>{{$user->codigo}}</p>
-  @foreach($user->menus as $menu)
-		<li>{{$menu->nombre}}</li>
-		<li>{{$menu->modulo}}</li>
-		<li>{{$menu->descripcion}}</li>
-	</br>
-
-  @endforeach
+<table class="table table-bordered table-hover table-striped">
+  <tr>
+	  <th>Nombre</th>
+	  <th>Cedula</th>
+	  <th>Restricción</th>
+	  <th>Menus</th>
+  </tr>
+  
+  <tr>
+	  <td>{{$user->nombre}}</td>
+	  <td>{{$user->codigo}}</td>
+	  <td>{{$user->language->nombre}}</td>
+	  <td>
+	  	@foreach($user->menus as $menu)
+	  	<span class="label label-primary">{{$menu->nombre}}</span>
+	  	@endforeach
+	  </td>
+  </tr>
  
-  <p><a class="btn btn-primary btn-lg" href="#" role="button">{{$user->restriccion}}</a></p>
-</div>
-</div>
+</table>
 @endsection

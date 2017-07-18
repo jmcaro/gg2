@@ -1,9 +1,6 @@
-@extends('layout.main')
-
-@section('contenido')
-
-<div class="col-md-6">
-<table class="table table-hover table-striped">
+@extends('home')
+@section('content')
+<table class="table table-bordered table-hover table-striped">
   <tr>
 	  <th>Nombre</th>
 	  <th>Cedula</th>
@@ -17,14 +14,13 @@
 	  <td>{{$user->restriccion}}</td>
 	  <td>
 	  	<div class="btn-group-md" role="group" aria-label="...">
-		  <a href={{route('user.show',$user->id)}} class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a>
+		  <a href="{{route('user.show',$user->id)}}" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a>
 		  <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></button>
 		  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle"></span></button>		 
 		</div>
 	  </td>
   </tr>
   @endforeach
-
+  {{ $users->links() }}
 </table>
-</div>
 @endsection

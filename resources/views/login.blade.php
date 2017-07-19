@@ -27,19 +27,19 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="#"><b>Sistema</b>Laravel</a>
+        <a href="#"><b>Sistema</b>GG</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Ingrese al sistema</p>
+        <p class="login-box-msg">Ingresar al sistema</p>
 
        
-        {!! Form::open(['url' => 'login']) !!}
-          <div class="form-group has-feedback">
-            <input type="email" class="form-control" placeholder="Email">
+        {!! Form::open(['url' => 'login', 'method'=>'post']) !!}
+          <div class="form-group has-feedback">            
+            {!! Form::text('codigo', '', ['placeholder'=>'Cedula','class' => 'form-control']) !!}
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password">
+            {!! Form::password('contraseña',['placeholder'=>'Contraseña','class' => 'form-control']) !!}
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
          
@@ -48,7 +48,7 @@
 
             
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            {!! Form::submit('Ingresar', ['class' => 'btn btn-primary btn-block btn-flat'] ); !!}
             </div><!-- /.col -->
           </div>
         </form>

@@ -15,11 +15,11 @@ use App\Http\Controllers\Controller;
 
 Route::get('/', function () {
     return view('home');
-});
+})->middleware('auth');
 
-Route::get('login', function () {
+/*Route::get('login', function () {
     return view('login');
-});
+});*/
 // Display all SQL executed in Eloquent
 /*Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
     var_dump($query->sql);p
@@ -36,8 +36,8 @@ Route::get('menu/{id?}', 'MenuController@menu');
 Route::resource('user','UserController');
 //Auth::routes();
 // Authentication Routes...
-Route::get('login', 'Auth\AuthController@showLoginForm')->name('login');
-Route::post('login', 'Auth\AuthController@login');
-Route::post('logout', 'Auth\AuthController@logout')->name('logout');
+Route::get('/login', 'AuthController@showLoginForm')->name('login');
+Route::post('/login', 'AuthController@postLogin');
+Route::post('logout', 'AuthController@logout')->name('logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');

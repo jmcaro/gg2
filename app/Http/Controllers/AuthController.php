@@ -1,11 +1,17 @@
 <?php
 
 namespace Illuminate\Foundation\Auth;
+namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\RedirectsUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Session;
+use Illuminate\Contracts\Auth\Guard;
 
-trait AuthenticatesUsers
+class AuthController extends Controller
 {
     use RedirectsUsers, ThrottlesLogins;
 
@@ -14,6 +20,13 @@ trait AuthenticatesUsers
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(Guard $auth)
+    {
+        $this->auth = $auth;
+        $this->middleware('guest', ['except' => 'getLogout']);
+      
+    }
     public function showLoginForm()
     {
         return view('login');
@@ -25,6 +38,26 @@ trait AuthenticatesUsers
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
+    public function postLogin(Request $request)
+   {
+    $this->validate($request, [
+        'codigo' => 'required',
+        'contraseña' => 'required',
+    ]);
+
+
+
+    $credentials = $request->only('codigo', 'contraseña');
+
+    if ($this->auth->attempt($credentials, $request->has('remember')))
+    {
+        return view("home");
+    }
+
+    return view()->with("msjerror","credenciales incorrectas");
+
+    }
+
     public function login(Request $request)
     {
         $this->validateLogin($request);
@@ -60,7 +93,7 @@ trait AuthenticatesUsers
     {
         $this->validate($request, [
             $this->username() => 'required|string',
-            'password' => 'required|string',
+            'contraseña' => 'required|string',
         ]);
     }
 
@@ -85,7 +118,7 @@ trait AuthenticatesUsers
      */
     protected function credentials(Request $request)
     {
-        return $request->only($this->username(), 'password');
+        return $request->only($this->username(), 'contraseña');
     }
 
     /**
@@ -142,7 +175,7 @@ trait AuthenticatesUsers
      */
     public function username()
     {
-        return 'email';
+        return 'codigo';
     }
 
     /**

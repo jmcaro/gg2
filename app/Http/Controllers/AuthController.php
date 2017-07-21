@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Session;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\View\Factory;
+
 
 class AuthController extends Controller
 {
@@ -40,22 +42,40 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request)
    {
+
+    //dd($request);
     $this->validate($request, [
         'codigo' => 'required',
-        'contraseña' => 'required',
+        'password' => 'required',
     ]);
 
 
 
-    $credentials = $request->only('codigo', 'contraseña');
+    $credentials = $request->only('codigo', 'password');
 
     if ($this->auth->attempt($credentials, $request->has('remember')))
     {
         return view("home");
     }
 
-    return view()->with("msjerror","credenciales incorrectas");
+    //return view()->with("msjerror","credenciales incorrectas");
+    return "Error";
+    }
 
+    public function login2( Request $request )
+    {
+        // Validate form data
+        $this->validate($request, [
+            'codigo'     => 'required|email',
+            'password'  => 'required|min:6'
+        ]);
+        // Attempt to authenticate user
+        // If successful, redirect to their intended location
+        if ( Auth::guard('admin')->attempt(['codigo' => $request->codigo, 'password' => $request->password], $request->remember) ) {
+            return redirect()->intended( route('home') );
+        }
+        // Authentication failed, redirect back to the login form
+        return redirect()->back()->withInput( $request->only('codigo', 'remember') );
     }
 
     public function login(Request $request)
@@ -93,7 +113,7 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             $this->username() => 'required|string',
-            'contraseña' => 'required|string',
+            'password' => 'required|string',
         ]);
     }
 

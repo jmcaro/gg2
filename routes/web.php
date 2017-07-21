@@ -37,7 +37,7 @@ Route::resource('user','UserController');
 //Auth::routes();
 // Authentication Routes...
 Route::get('/login', 'AuthController@showLoginForm')->name('login');
-Route::post('/login', 'AuthController@postLogin');
-Route::post('logout', 'AuthController@logout')->name('logout');
+Route::post('/login', 'AuthController@login2');
+Route::post('/logout', 'AuthController@logout')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
